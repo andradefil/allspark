@@ -12,7 +12,7 @@ const parser = new ArgumentParser({
 parser.add_argument('-v', '--version', { action: 'version', version });
 parser.add_argument('-c', '--config', { help: 'Path to config file', required: true });
 parser.add_argument('-o', '--output', { help: 'Path to output directory where to put the budget.html file', default: './' });
-parser.add_argument('-m', '--mode' , { help: 'Mode to run in. Allowed modes are ["freelancer", "project", "team"]'});
+parser.add_argument('-m', '--mode' , { help: 'Mode to run in. Allowed modes are ["freelancer", "project", "team"]', default: 'project'});
 parser.add_argument('-s', '--shine', { help: 'Tells allspark to shine so you can see everything that is going on behind the scenes', default: false });
 
 const options = parser.parse_args();

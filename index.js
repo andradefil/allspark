@@ -1,3 +1,5 @@
+const TYPE = "project";
+
 function loadConfig() {
 	return {
 		"customerName": "My Awesome Customer",
@@ -29,26 +31,12 @@ function loadConfig() {
 	}
 }
 
+function loadBudget(config) {
+	return require(`./src/${TYPE}`)(config);
+}
+
 var config = loadConfig();
-var taxes = config.taxes;
-var developers = config.developers;
-var features = config.features;
-
-// calculations
-var cost = 0;
-for (let feature of features) {
-	for (let developer of developers) {
-		cost += feature.time * developer.cost;
-	}
-}
-
-var taxAmount = 0;
-for (let tax of taxes) {
-	taxAmount += ((cost * tax.percent) / 100);
-}
-
-var amount = cost - taxAmount;
-
+const budget = loadBudget(config);
 
 // template engine
 var HandleBars = require("handlebars")

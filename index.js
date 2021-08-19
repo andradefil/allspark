@@ -1,58 +1,59 @@
+const fs = require("fs");
+const HandleBars = require("handlebars");
+
 function loadConfig() {
-	return {
-		"customerName": "My Awesome Customer",
-		"projectName": "My Awesome Project",
-		"features": [
-			{
-				"name": "Crud Barbers",
-				"time": 1
-			},
-			{
-				"name": "Reports of seling by week",
-				"time": 1
-			},
-			{
-				"name": "Eletronic signed login",
-				"time": 3
-			},
-		],
-		"taxes": [
-			{
-				"percent": 20,
-			}
-		],
-		"developers": [
-			{
-				"cost": 100
-			}
-		]
-	}
+  return {
+    customerName: "My Awesome Customer",
+    projectName: "My Awesome Project",
+    features: [
+      {
+        name: "Crud Barbers",
+        time: 1,
+      },
+      {
+        name: "Reports of seling by week",
+        time: 1,
+      },
+      {
+        name: "Eletronic signed login",
+        time: 3,
+      },
+    ],
+    taxes: [
+      {
+        percent: 20,
+      },
+    ],
+    developers: [
+      {
+        cost: 100,
+      },
+    ],
+  };
 }
 
-var config = loadConfig();
-var taxes = config.taxes;
-var developers = config.developers;
-var features = config.features;
+const config = loadConfig();
+const taxes = config.taxes;
+const developers = config.developers;
+const features = config.features;
 
 // calculations
-var cost = 0;
+let cost = 0;
 for (let feature of features) {
-	for (let developer of developers) {
-		cost += feature.time * developer.cost;
-	}
+  for (let developer of developers) {
+    cost += feature.time * developer.cost;
+  }
 }
 
-var taxAmount = 0;
+let taxAmount = 0;
 for (let tax of taxes) {
-	taxAmount += ((cost * tax.percent) / 100);
+  taxAmount += (cost * tax.percent) / 100;
 }
 
-var amount = cost - taxAmount;
-
+const amount = cost - taxAmount;
 
 // template engine
-var HandleBars = require("handlebars")
-var template = HandleBars.compile(`
+const template = HandleBars.compile(`
 <html>
 	<head>
 		<title>Budget</title>
@@ -67,24 +68,21 @@ var template = HandleBars.compile(`
 		</div>
 	</body>
 </html>
-`)
+`);
 
-var payload = {
-	customerName: config.customerName,
-	taxAmount: taxAmount,
-	amount: amount,
-	cost: cost
-}
+const payload = {
+  customerName: config.customerName,
+  taxAmount: taxAmount,
+  amount: amount,
+  cost: cost,
+};
 
-var output = template(payload);
-var fs = require('fs');
+const output = template(payload);
 
 // generate file
-console.log("budget created, generating file...")
-var stream = fs.createWriteStream("budget.html");
-stream.once('open', () => {
-	stream.write(output);
-	stream.end();
-})
-
-
+console.log("budget created, generating file...");
+const stream = fs.createWriteStream("budget.html");
+stream.once("open", () => {
+  stream.write(output);
+  stream.end();
+});

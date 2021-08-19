@@ -6,7 +6,8 @@ AllSpark is the source energy for the transformers, and well is the force to gen
 # Configuration
 A project is configured using a simple json like that
 ```json
-"customerName": "My Awesome Customer",
+{
+  "customerName": "My Awesome Customer",
   "projectName": "My Awesome Project",
   "features": [
     {
@@ -20,11 +21,11 @@ A project is configured using a simple json like that
     {
       "name": "Eletronic signed login",
       "time": 3
-    },
+    }
   ],
   "taxes": [
     {
-      "percent": 20,
+      "percent": 20
     }
   ],
   "developers": [

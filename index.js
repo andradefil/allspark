@@ -1,5 +1,6 @@
 const fs = require("fs");
 const HandleBars = require("handlebars");
+const TYPE = "project";
 
 function loadConfig() {
   return {
@@ -32,25 +33,12 @@ function loadConfig() {
   };
 }
 
+function loadBudget(config) {
+	return require(`./src/${TYPE}`)(config);
+}
+
 const config = loadConfig();
-const taxes = config.taxes;
-const developers = config.developers;
-const features = config.features;
-
-// calculations
-let cost = 0;
-for (let feature of features) {
-  for (let developer of developers) {
-    cost += feature.time * developer.cost;
-  }
-}
-
-let taxAmount = 0;
-for (let tax of taxes) {
-  taxAmount += (cost * tax.percent) / 100;
-}
-
-const amount = cost - taxAmount;
+const budget = loadBudget(config);
 
 // template engine
 const template = HandleBars.compile(`
@@ -72,9 +60,9 @@ const template = HandleBars.compile(`
 
 const payload = {
   customerName: config.customerName,
-  taxAmount: taxAmount,
-  amount: amount,
-  cost: cost,
+  taxAmount: budget.taxAmount,
+  amount: budget.amount,
+  cost: budget.cost,
 };
 
 const output = template(payload);

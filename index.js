@@ -1,76 +1,50 @@
-const fs = require("fs");
-const HandleBars = require("handlebars");
-const TYPE = "project";
+const argparser = require('./src/argument-parser');
+const templateGenerator = require('./src/template-generator');
+const fileGenerator = require('./src/file-generator');
+
+console.timeLog();
+console.info("Parsing arguments");
+const args = argparser();
+
+function verbose(message = "") {
+	if(args.verbose) {
+		console.log(message);
+	}
+}
 
 function loadConfig() {
-  return {
-    customerName: "My Awesome Customer",
-    projectName: "My Awesome Project",
-    features: [
-      {
-        name: "Crud Barbers",
-        time: 1,
-      },
-      {
-        name: "Reports of seling by week",
-        time: 1,
-      },
-      {
-        name: "Eletronic signed login",
-        time: 3,
-      },
-    ],
-    taxes: [
-      {
-        percent: 20,
-      },
-    ],
-    developers: [
-      {
-        cost: 100,
-      },
-    ],
-  };
+	try {
+		return require(args.configPath);
+	} catch(err) {
+		console.error("Couldn't load the config file")
+		console.log(err);
+		process.exit(-1);
+	}
 }
 
 function loadBudget(config) {
-	return require(`./src/${TYPE}`)(config);
+	try {
+		return require(`./src/${args.type}`)(config);
+	} catch(err) {
+		console.error("Couldn't calc the budget. Make sure the config file matchs the specified calc type")
+		console.log(err);
+		process.exit(-1);
+	}
 }
 
+verbose("Loading config file...");
 const config = loadConfig();
+verbose("Performing budget calc...");
 const budget = loadBudget(config);
+verbose("Generating template and writing payload...");
+const output = templateGenerator(config.customerName, budget);
+verbose("Budget created, generating file...");
+const success = fileGenerator(args.outputDir, output);
 
-// template engine
-const template = HandleBars.compile(`
-<html>
-	<head>
-		<title>Budget</title>
-	</head>
-	<body>
-		<div>
-			<h1>{{customerName}}</h1>
-		</div>
-		<div>
-			<h2>Total Amount {{cost}}</h2>
-			<h3>Total Taxes {{taxAmount}}</h3>
-		</div>
-	</body>
-</html>
-`);
+if(success) {
+	console.info("Done!");
+	process.exit(0);
+}
 
-const payload = {
-  customerName: config.customerName,
-  taxAmount: budget.taxAmount,
-  amount: budget.amount,
-  cost: budget.cost,
-};
-
-const output = template(payload);
-
-// generate file
-console.log("budget created, generating file...");
-const stream = fs.createWriteStream("budget.html");
-stream.once("open", () => {
-  stream.write(output);
-  stream.end();
-});
+console.error("Erro!");
+process.exit(-1);

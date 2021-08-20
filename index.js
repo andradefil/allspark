@@ -37,7 +37,7 @@ const config = loadConfig();
 verbose("Performing budget calc...");
 const budget = loadBudget(config);
 verbose("Generating template and writing payload...");
-const output = templateGenerator(config.customerName, budget);
+const output = templateGenerator({ config, budget });
 verbose("Budget created, generating file...");
 const success = fileGenerator(args.outputDir, output);
 

@@ -1,11 +1,17 @@
 module.exports = () => {
-    const HELP = ` Allspark HELP:
+    const { description, version } = require('../package.json');
+
+    const HELP = ` 
+        ${description}.
+        Version: ${version}.
+
         Usage:
+        [-h][--help] : Prints this help message.
         [-v][--verbose] : Verbose mode, will tell allspark to print everything that is going on behind the scenes.
         [-c][--configPath] : Tells allspark where is located the config file. Defaults to "./allspark-config.json".
-        [-o][--outputDir] : The directory to write the budget.html file. Defaults to "./"
+        [-o][--outputDir] : The directory to write the budget.html file. Defaults to "./".
         [t][--type] : Select wich budget calc you want to perform. Config file must attend the type specification.
-            - Possible types: ["project", "freelancer", "team"]
+            - Possible types: ["project"]
             - Defaults to: "project"
 
         Example: 
@@ -23,7 +29,7 @@ module.exports = () => {
     };
     const args = process.argv.slice(2); // [0]node [1]index.js [...]args.
 
-    if(args.includes("-h")) {
+    if(args.includes("-h") || args.includes("--help")) {
         console.log(HELP);
         process.exit(0);
     }

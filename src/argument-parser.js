@@ -15,7 +15,7 @@ module.exports = () => {
             - Defaults to: "project"
 
         Example: 
-        $ .bin/allspark -v true -c /my/path/to/config.json -o /my/budget/directory/ -t project
+        $ allspark -v true -c /my/path/to/config.json -o /my/budget/directory/ -t project
     `;
     const FLAGS = {
         '-v': 'verbose',

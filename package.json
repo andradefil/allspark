@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "AllSpark is the source energy for the transformers, and is the force to generate budget preview for agile software projects",
   "main": "index.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filipewvandrade/allspark"
+  },
+  "bin": "./allspark",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

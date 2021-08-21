@@ -5,8 +5,11 @@ AllSpark is the source energy for the transformers, and well is the force to gen
 
 # Configuration
 A project is configured using a simple json like that
+
+- For `project` type: 
 ```json
-"customerName": "My Awesome Customer",
+{
+  "customerName": "My Awesome Customer",
   "projectName": "My Awesome Project",
   "features": [
     {
@@ -20,11 +23,11 @@ A project is configured using a simple json like that
     {
       "name": "Eletronic signed login",
       "time": 3
-    },
+    }
   ],
   "taxes": [
     {
-      "percent": 20,
+      "percent": 20
     }
   ],
   "developers": [
@@ -37,10 +40,23 @@ A project is configured using a simple json like that
 
 After to configure, the budget is ready to build
 
+# Args
+
+The possible arguments for allspark are: 
+  - `-v` or `--verbose`: Tells allspark to enligth you with all the information of whats is being done behind the scenes (verbose). Defaults to `false`.
+  - `-c` or `--configPath`: Specifies the config file path. It's required.
+  - `-o` or `--outputDir`: Specifies the output directory to write the budget.html file. Defaults to `./`.
+  - `-t` or `--type`: Specify wich type of budget you want. The config file should be specified in this mode. Defaults to `project`.
+    - Currently only `project` type is allowed
+  
+
 # Run
 ```shell
 $ npm install
-$ node index.js
+
+$ chmod +x allspark
+
+$ allspark -v true -c /my/path/to/config.json -o /my/budget/directory/ -t project
 ```
 
-A html file will be generated on the project tree with the budget calculation
+A html file will be generated on the output dir with the budget calculation

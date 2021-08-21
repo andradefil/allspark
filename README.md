@@ -54,9 +54,9 @@ The possible arguments for allspark are:
 ```shell
 $ npm install
 
-$ chmod +x .bin/allspark
+$ chmod +x allspark
 
-$ .bin/allspark -v true -c /my/path/to/config.json -o /my/budget/directory/ -t project
+$ allspark -v true -c /my/path/to/config.json -o /my/budget/directory/ -t project
 ```
 
 A html file will be generated on the output dir with the budget calculation

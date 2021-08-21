@@ -1,17 +1,21 @@
+const HandleBars = require("handlebars");
+
 module.exports = (payload) => {
-    return `<html>
+    const template = HandleBars.compile(`<html>
     <head>
         <title>Budget</title>
     </head>
     <body>
         <div>
-            <h1>${payload.config.customerName}</h1>
+            <h1>{{customerName}}</h1>
         </div>
         <div>
-            <h2>Total Amount ${payload.budget.cost}</h2>
-            <h3>Total Taxes ${payload.budget.taxAmount}</h3>
+            <h2>Total Amount {{cost}}</h2>
+            <h3>Total Taxes {{taxAmount}}</h3>
         </div>
     </body>
 </html>
-    `;
+    `);
+
+    return template(payload);
 };

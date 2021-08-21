@@ -1,7 +1,12 @@
 const fs = require("fs");
 
 function readFile(filepath) {
-
+    try {
+        return fs.readFileSync(filepath, 'utf8');
+    }  catch (e) {
+        console.log(e);
+        throw e
+    }
 }
 
 function writeFile(filePath, fileName, fileContent) {

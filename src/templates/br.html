@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <style>
+        .container {
+            background-color: lightyellow;
+            max-width: 30em;
+        }
+    </style>
+    <title>Budget</title>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <h1>{{customerName}}</h1>
+        </div>
+        <div>
+            <h2>Funcionalidades</h2>
+            <ul class="feature_list">
+                {{#each features}}
+                <li>{{this.name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        <div>
+            <h2>Preço Total R${{cost}}</h2>
+            <h3>Taxas de projeto R${{taxAmount}}</h3>
+        </div>
+    </div>
+</body>
+
+</html>

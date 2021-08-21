@@ -1,5 +1,5 @@
 const app = require('./src/app')
-const argParser = require('./src/argument-parser');
+const argParser = require('./src/parser');
 
 console.timeLog();
 const args = argParser();

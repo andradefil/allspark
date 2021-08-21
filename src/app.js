@@ -1,5 +1,5 @@
-const templateGenerator = require('./template-generator');
 const { writeFile } = require('./file');
+const generator = require('./generator');
 const project = require('./project');
 const log = require('./log');
 
@@ -19,14 +19,15 @@ function run(args) {
     log.verbose("Performing budget calc...");
     const budget = project.calculation(config);
     log.verbose("Generating template and writing payload...");
-    const fileContent = templateGenerator({
+    const content = generator.template({
         customerName: config.customerName,
+        features: config.features,
         taxAmount: budget.taxAmount,
         amount: budget.amount,
         cost: budget.cost,
     });
     log.verbose("Budget created, generating file...");
-    const success = writeFile(args.outputDir, "budget.html", fileContent);
+    const success = writeFile(args.outputDir, "budget.html", content);
 
     if (success) {
         log.info("Done!");

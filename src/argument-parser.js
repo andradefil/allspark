@@ -48,5 +48,8 @@ module.exports = () => {
         });
     });
 
+    if (parsedArgs.verbose) {
+        process.env.VERBOSE = true
+    }
     return parsedArgs;
 }

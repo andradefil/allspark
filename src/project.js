@@ -5,9 +5,11 @@ function calculation(config) {
 
     // calculations
     let cost = 0;
+    let totalTime = 0;
     for (let feature of features) {
         for (let developer of developers) {
             cost += feature.time * developer.cost;
+            totalTime += feature.time;
         }
     }
 
@@ -21,6 +23,7 @@ function calculation(config) {
     return {
         amount,
         taxAmount,
+        totalTime,
         cost
     };
 }

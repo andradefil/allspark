@@ -22,6 +22,7 @@ function run(args) {
     const content = generator.template({
         customerName: config.customerName,
         features: config.features,
+        totalTime: budget.totalTime,
         taxAmount: budget.taxAmount,
         amount: budget.amount,
         cost: budget.cost,

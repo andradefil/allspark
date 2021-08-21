@@ -10,7 +10,7 @@ function writeFile(filePath, fileName, fileContent) {
             console.warn("Output dir doesnt exists. Creating it...");
             fs.mkdirSync(filePath, '0777');
         }
-        fs.writeFileSync(filepath + fileName, fileContent);
+        fs.writeFileSync(filePath + fileName, fileContent);
         return true;
 
     } catch (e) {

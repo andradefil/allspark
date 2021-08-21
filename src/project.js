@@ -1,4 +1,4 @@
-module.exports = (config) => {
+function calculation(config) {
     const taxes = config.taxes;
     const developers = config.developers;
     const features = config.features;
@@ -17,10 +17,13 @@ module.exports = (config) => {
     }
 
     const amount = cost - taxAmount;
-
+    
     return {
         amount,
         taxAmount,
         cost
     };
+}
+module.exports = {
+    calculation
 }
